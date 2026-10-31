@@ -10,13 +10,14 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 | `src/hooks`     | shadcn 원본 훅 (`use-mobile` — sidebar가 씀) | 위와 같다.                                                                           |
 | `src/custom`    | 직접 만들거나 원본을 감싼 컴포넌트           | 자유롭게 고친다. 원본 컴포넌트를 import해 조합한다. 아래 "커스텀" 표에 적는다.       |
 | `src/theme.css` | 공통 색·radius·글꼴 + 컴포넌트 클래스 스캔   | 프로젝트에만 쓰는 토큰은 각 프로젝트 `globals.css`에.                                |
+| `src/typeset.css` | shadcn Typeset 원본 (긴 글·마크다운 활자) | **손으로 고치지 않는다.** CLI로 못 받아 shadcn 저장소에서 복사했다. 아래 "Typeset" |
 | `src/cn.ts`     | 커스텀 글자 크기를 등록한 `cn`               | 원본 컴포넌트도 이것을 쓴다(받을 때 import만 바꿈).                                  |
 | `ui.lock.json`  | 마지막으로 받은 원본의 해시·shadcn 버전      | `ui:update`가 쓴다. 손대지 않는다.                                                   |
 
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.9.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.10.0"
 ```
 
 ```ts
@@ -63,6 +64,33 @@ import { cn } from "@logjoa/ui/cn";
 - `SiteHeader`·`SiteFooter`는 세 프로젝트 헤더·푸터를 기본 모양으로 맞춘 것이다. 로그인 여부·언어 선택·테마 전환은 각 프로젝트가 `actions`에 넣는다(v0.9.0).
 - 새 커스텀을 넣으면 이 표에 적는다. 원본에 모양만 더하는 것이면 `src/ui`를 고치지 말고 `src/custom`에서 원본을 감싼다.
 
+## Typeset (`typeset.css`)
+
+[shadcn Typeset](https://ui.shadcn.com/docs/typeset) — `typeset` 클래스를 단 요소 안의 맨 HTML(`p`·`h2`·`ul`·`a`·`code`·`table` 등)에 활자를 입히는 CSS 한 장. 긴 글을 태그마다 클래스로 꾸미지 않고 쓴다.
+
+```css
+/* globals.css — theme.css 다음에 */
+@import "@logjoa/ui/typeset.css";
+
+/* 프리셋은 프로젝트마다. @layer components 밖에 두면 Tailwind 유틸리티로 덮어쓸 수 없다 */
+@layer components {
+  .typeset-article {
+    --typeset-size: 1.05rem;   /* 본문 크기 (48rem 미만은 1.125배) */
+    --typeset-leading: 1.8;    /* 줄 간격 */
+    --typeset-flow: 1.75rem;   /* 문단 사이. 제목 위아래 간격도 여기서 나온다 */
+  }
+}
+```
+
+```tsx
+<article className="typeset typeset-article">…</article>
+```
+
+- 제목 글꼴은 `--font-heading`, 코드는 `--font-mono`(theme.css)를 그대로 쓴다. 다크 모드는 테마 토큰을 따라 따로 할 것이 없다.
+- `data-slot`이 있는 요소(shadcn 원본 컴포넌트)는 건드리지 않는다. 직접 만든 컴포넌트·버튼처럼 `data-slot`이 없는 것은 `not-typeset`을 달아 뺀다 — 안 달면 `<a>`에 밑줄, `ul`에 점이 붙는다.
+- `not-typeset`을 단 요소는 위 간격도 받지 않는다. 글 흐름 안에 둘 때는 `mt-(--typeset-flow)`를 준다.
+- 원본 shadcn CLI가 아니라 저장소 파일이라 `ui:update`·`ui:check` 대상이 아니다. 새로 받을 때는 맨 위 주석의 출처 커밋을 바꾸고 아래를 그대로 덮어쓴다.
+
 ## 원본 받기·확인
 
 ```bash
@@ -83,6 +111,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.10.0: shadcn Typeset 원본 `typeset.css` 추가(`@logjoa/ui/typeset.css`, 긴 글 활자).
 - v0.9.0: 커스텀 `SiteHeader`·`SiteFooter` 추가(세 프로젝트 사이트 헤더·푸터 공통).
 - v0.8.0: 커스텀 `AdminShell`·`AdminNav` 추가(세 프로젝트 관리자 화면 공통 틀).
 - v0.7.0: 커스텀 `PageHeader`·`Inner`·`TableBase` 추가(devlog·mobilog에 똑같이 복사돼 있던 페이지 제목·콘텐츠 폭·표).
