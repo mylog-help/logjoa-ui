@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.12.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.13.0"
 ```
 
 ```ts
@@ -61,6 +61,9 @@ import { cn } from "@logjoa/ui/cn";
 | `AuthHeader`·`AuthFooter` | 인증 폼 위 제목(`h1`)·설명(`icon` 선택), 아래 전환 문구(줄마다 `<p>`, 링크 밑줄). 구분선은 원본 `FieldSeparator`, 입력은 원본 `Field` | devlog·mobilog·mylog 인증 화면 |
 | `StatusScreen`        | 404·오류 화면 — 큰 코드·제목(`h1`)·설명·오류 코드(`digest`)·버튼. 원본 `Empty` 위. 레이아웃 안 `min-h-[60vh]`, 밖은 `fullScreen` | devlog·mobilog·mylog `not-found`·`error` |
 | `GlobalErrorScreen`   | `global-error.tsx` 화면 — `<html>`·`<body>` 직접, 전역 CSS 없이 인라인 스타일. `reset` 을 `onRetry` 로 | devlog·mobilog·mylog `global-error` |
+| `EmptyState`          | 빈 목록 안내 — 원본 `Empty` + 점선 테두리(`bordered`, 기본 켜짐)·아이콘·제목·설명·버튼. 쓰는 쪽에서 `Empty` 에 `border` 를 덧칠하지 않게 | devlog 목록 화면, mylog 백업 뷰어 |
+| `ConfirmDialog`       | 되돌리기 어려운 동작 전 확인 상자(원본 `AlertDialog`). 확인 버튼 색은 `destructive` 하나로. `open` 을 주면 확인 뒤 저절로 닫히지 않고(쓰는 쪽이 성공 후 닫음), `trigger` 만 주면 `onConfirm` 이 끝난 뒤 닫음(`false` 를 돌려주면 열린 채). `pending` 이면 취소·Esc 로도 안 닫힘 | devlog·mobilog 삭제·취소 확인 |
+| `ThemeToggle`         | 밝은·어두운 테마 전환 아이콘 버튼(next-themes). 아이콘은 CSS(`dark:`)로 바꿔 하이드레이션 경고가 없다 | mylog·mobilog 헤더 |
 
 - 두 날짜 입력은 동작이 달라 따로 둔다. 원래 이름이 둘 다 `SmartDateInput`이었는데 user-history 쪽을 `NormalizedDateInput`으로 바꿨다(v0.3.0).
 - `FullscreenMenu`는 shadcn `Sheet`(옆에서 밀려 들어오는 패널)로는 같은 모양이 안 나와 따로 둔다(v0.4.0).
@@ -116,6 +119,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.13.0: 커스텀 `ConfirmDialog`(mobilog 것을 옮기고 `trigger`·`cancelLabel` 추가)·`ThemeToggle`·`EmptyState` 추가.
 - v0.12.0: 원본 `empty` 추가(빈 상태 — 세 프로젝트 빈 목록 안내가 씀). 커스텀 `StatusScreen`·`GlobalErrorScreen` 추가(404·오류 화면 공통).
 - v0.11.0: 커스텀 `AuthShell`·`AuthHeader`·`AuthFooter`(세 프로젝트 인증 화면 공통)·`Brand` 추가. `AdminShell`·`SiteHeader`·`SiteFooter`의 브랜드도 `Brand`로.
 - v0.10.1: `SiteHeader` 메뉴를 Button 기본 크기(`h-8`·14px)로, 서랍 링크는 `lg`. `SiteFooter` 링크 묶음은 브랜드 옆 남은 폭을 고르게 나누고(가운데 빈칸 없앰), 묶음 제목 12px, 좁은 화면 링크 터치 영역을 넓힘. 두 블록 모두 `break-keep`(한국어 단어 중간 줄바꿈 방지).
