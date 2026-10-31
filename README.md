@@ -111,6 +111,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.10.1: `SiteHeader` 메뉴를 Button 기본 크기(`h-8`·14px)로, 서랍 링크는 `lg`. `SiteFooter` 링크 묶음은 브랜드 옆 남은 폭을 고르게 나누고(가운데 빈칸 없앰), 묶음 제목 12px, 좁은 화면 링크 터치 영역을 넓힘. 두 블록 모두 `break-keep`(한국어 단어 중간 줄바꿈 방지).
 - v0.10.0: shadcn Typeset 원본 `typeset.css` 추가(`@logjoa/ui/typeset.css`, 긴 글 활자).
 - v0.9.0: 커스텀 `SiteHeader`·`SiteFooter` 추가(세 프로젝트 사이트 헤더·푸터 공통).
 - v0.8.0: 커스텀 `AdminShell`·`AdminNav` 추가(세 프로젝트 관리자 화면 공통 틀).

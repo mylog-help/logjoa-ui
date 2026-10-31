@@ -95,13 +95,18 @@ export function SiteFooter({
   );
 
   return (
-    <footer className={cn("w-full border-t bg-background", className)}>
+    <footer
+      className={cn("w-full border-t bg-background break-keep", className)}
+    >
       <Inner size="wide" className="py-12">
-        <div className="flex flex-col gap-10 md:flex-row md:justify-between">
-          <div className="flex max-w-sm flex-col gap-3">
+        {/* 브랜드는 고정 폭, 링크 묶음은 남은 폭을 고르게 나눈다 — 가운데가 비지 않게 */}
+        <div className="flex flex-col gap-10 md:flex-row md:gap-16">
+          <div className="flex flex-col gap-3 md:w-72 md:shrink-0">
             {brandLink}
             {description && (
-              <p className="text-sm text-muted-foreground">{description}</p>
+              <p className="text-sm text-pretty text-muted-foreground">
+                {description}
+              </p>
             )}
             {social.length > 0 && (
               <ul className="flex flex-wrap gap-x-4 gap-y-1">
@@ -119,17 +124,17 @@ export function SiteFooter({
           </div>
 
           {groups.length > 0 && (
-            <div className="grid grid-cols-2 gap-8 sm:auto-cols-max sm:grid-flow-col sm:grid-cols-none sm:gap-16">
+            <div className="grid flex-1 grid-cols-2 gap-8 sm:auto-cols-fr sm:grid-flow-col sm:grid-cols-none">
               {groups.map((group, i) => (
                 <div key={i} className="flex flex-col gap-3">
-                  <p className="text-sm font-medium">{group.title}</p>
-                  <ul className="flex flex-col gap-1">
+                  <p className="text-xs font-medium">{group.title}</p>
+                  <ul className="flex flex-col">
                     {group.links.map((link) => (
                       <li key={link.href}>
                         <FooterLink
                           link={link}
                           Link={Link}
-                          className="inline-block py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                          className="inline-block py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:py-1"
                         />
                       </li>
                     ))}

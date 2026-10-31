@@ -66,7 +66,10 @@ type SiteHeaderProps = {
   brand: { name: React.ReactNode; logo?: React.ReactNode; href: string };
   /** 가운데 내비게이션. `lg` 이상은 위쪽 바에, 미만은 오른쪽 서랍에. */
   nav?: SiteNavItem[];
-  /** 오른쪽 끝 — 늘 보인다(언어·로그인·테마 등). 좁은 화면에서 숨길 것은 쓰는 쪽이 감싸서 숨긴다. */
+  /**
+   * 오른쪽 끝 — 늘 보인다(언어·로그인·테마 등). 좁은 화면에서 숨길 것은 쓰는 쪽이 감싸서 숨긴다.
+   * 높이를 맞추려면 Button 기본 크기(`h-8`)·아이콘은 `size="icon"`. 가장 강한 버튼을 맨 오른쪽에.
+   */
   actions?: React.ReactNode;
   /** 서랍 맨 아래(내려받기·언어 목록 등). */
   menuFooter?: React.ReactNode;
@@ -151,12 +154,12 @@ function DesktopMenu({
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant={anyActive ? "secondary" : "ghost"} size="sm">
+        <Button variant={anyActive ? "secondary" : "ghost"}>
           {menu.label}
           <ChevronDownIcon aria-hidden />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-auto min-w-44">
+      <DropdownMenuContent align="start" className="w-auto">
         {/* 묶음이 여럿이면 옆으로 나란히 — 긴 목록 하나로 내려가지 않게 */}
         <div className="grid gap-x-2 sm:auto-cols-fr sm:grid-flow-col">
           {menu.groups.map((group, i) => (
@@ -232,7 +235,7 @@ export function SiteHeader({
     <header
       ref={ref}
       className={cn(
-        "z-40 w-full border-b bg-background",
+        "z-40 w-full border-b bg-background break-keep",
         sticky && "sticky top-0",
         className,
       )}
@@ -262,7 +265,6 @@ export function SiteHeader({
                   key={item.href}
                   asChild
                   variant={active ? "secondary" : "ghost"}
-                  size="sm"
                 >
                   <Link {...linkProps(item, active)}>{item.label}</Link>
                 </Button>
@@ -314,6 +316,7 @@ export function SiteHeader({
                             key={item.href}
                             asChild
                             variant={active ? "secondary" : "ghost"}
+                            size="lg"
                             className="w-full justify-start"
                           >
                             <Link {...linkProps(item, active)} onClick={close}>
