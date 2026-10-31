@@ -1,11 +1,22 @@
 # @logjoa/ui
 
-logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 shadcn 컴포넌트와 테마. npm에 올리지 않고 git 태그로 설치한다.
+logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴포넌트, 직접 만든 컴포넌트, 테마. npm에 올리지 않고 git 태그로 설치한다.
+
+## 구조
+
+| 폴더            | 내용                                         | 규칙                                                                                 |
+| --------------- | -------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `src/ui`        | shadcn 원본 컴포넌트 (radix-nova, lucide)    | **손으로 고치지 않는다.** `pnpm ui:update`로만 바뀐다. CI(`pnpm ui:check`)가 지킨다. |
+| `src/hooks`     | shadcn 원본 훅 (`use-mobile` — sidebar가 씀) | 위와 같다.                                                                           |
+| `src/custom`    | 직접 만들거나 원본을 감싼 컴포넌트           | 자유롭게 고친다. 원본 컴포넌트를 import해 조합한다. 아래 "커스텀" 표에 적는다.       |
+| `src/theme.css` | 공통 색·radius·글꼴 + 컴포넌트 클래스 스캔   | 프로젝트에만 쓰는 토큰은 각 프로젝트 `globals.css`에.                                |
+| `src/cn.ts`     | 커스텀 글자 크기를 등록한 `cn`               | 원본 컴포넌트도 이것을 쓴다(받을 때 import만 바꿈).                                  |
+| `ui.lock.json`  | 마지막으로 받은 원본의 해시·shadcn 버전      | `ui:update`가 쓴다. 손대지 않는다.                                                   |
 
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.2.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.3.0"
 ```
 
 ```ts
@@ -20,32 +31,46 @@ transpilePackages: ["@logjoa/ui"],
 ```
 
 ```tsx
-import { Button } from "@logjoa/ui/button";
+import { Button } from "@logjoa/ui/button"; // 원본 (src/ui)
+import { SmartDateInput } from "@logjoa/ui/custom/smart-date-input"; // 커스텀 (src/custom)
 import { cn } from "@logjoa/ui/cn";
 ```
 
+- import 경로만 봐도 원본인지 커스텀인지 안다. 원본의 모양·사용법은 [shadcn 문서](https://ui.shadcn.com/docs/components)를 본다.
 - `cn`은 패키지 것을 쓴다. 세 프로젝트의 커스텀 글자 크기(`text-caption` 등)를 등록해 둬서, 색 클래스를 지우지 않는다. 프로젝트에 `--text-*`를 추가하면 `src/cn.ts`의 `CUSTOM_TEXT_SIZES`에도 넣는다.
-- `@shadcn/lint`의 `no-restyle`이 이 패키지 컴포넌트를 알아보게 `components.json`의 `aliases.ui`를 `"@logjoa/ui"`로.
-- `cmdk`·`vaul`·`sonner`·`recharts` 등은 선택 peer 의존성 — 그 컴포넌트를 쓰는 프로젝트만 설치한다.
+- `@shadcn/lint`의 `no-restyle`이 이 패키지 컴포넌트(원본·커스텀 모두)를 알아보게 `components.json`의 `aliases.ui`를 `"@logjoa/ui"`로.
+- `cmdk`·`vaul`·`sonner`·`recharts`·`dayjs` 등은 선택 peer 의존성 — 그 컴포넌트를 쓰는 프로젝트만 설치한다.
 
-## shadcn 원본과 다른 것
+## 커스텀 (`src/custom`)
 
-`src/components`는 shadcn(radix-nova, lucide) 원본을 기준으로 한다. 모양·사용법은 [shadcn 문서](https://ui.shadcn.com/docs/components)를 본다. 원본과 다른 것은 아래뿐이다(2026-10-31 기준, shadcn CLI 4.23으로 새로 받아 줄 단위 비교).
+| 컴포넌트              | 하는 일                                                                                                                  | 쓰는 곳 (2026-10-31)                              |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| `SmartDateInput`      | 입력하는 동안 `2026`·`202601`·`260101`·`2026/1/15`·`2026.01` 등을 해석해 결과를 보여 줌(연도만이면 "대략")               | devlog my-history (순간·인물 대화상자, 경력 폼)   |
+| `NormalizedDateInput` | 입력칸을 벗어날 때 `yyyy-MM-dd`로 맞춤, 못 바꾸면 `invalidMessage`를 띄우고 빈 값을 올림. `normalizeDateString`도 내보냄 | devlog user-history (직원·등록 폼, 개인 타임라인) |
 
-| 파일                   | 다른 점                                                                       | 쓰는 쪽에서 보이는 차이         |
-| ---------------------- | ----------------------------------------------------------------------------- | ------------------------------- |
-| `dialog.tsx`           | 닫히는 동안 닫기 버튼이 먼저 사라짐                                           | 모든 대화상자의 닫힘 애니메이션 |
-| `carousel.tsx`         | 이전·다음 가능 여부를 `useSyncExternalStore`로 추적(react-hooks v7 린트 대응) | 없음                            |
-| `hooks/use-mobile.ts`  | `useSyncExternalStore`로 구현, 서버 렌더에서는 `false`                        | 없음                            |
-| `smart-date-input.tsx` | shadcn에 없는 직접 만든 컴포넌트(devlog에서 옴, devlog만 씀)                  | —                               |
+- 두 날짜 입력은 동작이 달라 따로 둔다. 원래 이름이 둘 다 `SmartDateInput`이었는데 user-history 쪽을 `NormalizedDateInput`으로 바꿨다(v0.3.0).
+- 새 커스텀을 넣으면 이 표에 적는다. 원본에 모양만 더하는 것이면 `src/ui`를 고치지 말고 `src/custom`에서 원본을 감싼다.
 
-- 설치할 때 shadcn이 넣는 `font-heading` 클래스(card·dialog·sheet 등 제목)는 `theme.css`에 `--font-heading`이 있어서 들어간 것이다 — 원본과 같다.
-- 한 프로젝트에서만 쓰는 모양은 패키지에 넣지 않는다. 그 프로젝트에서 감싸 쓰거나 원본 옵션으로 맞춘다. (v0.1.0에 있던 mylog 전용 variant — Button `glass`·`pill`·`icon-round`, Tabs `pill`·`glass`, DropdownMenu `size="lg"` — 는 v0.2.0에서 뺐다.)
+## 원본 받기·확인
 
-## 고치기
+```bash
+pnpm ui:update [이름...]  # shadcn에서 받아 src/ui·src/hooks를 덮어쓰고 ui.lock.json 기록 (이름 없으면 지금 있는 전부)
+pnpm ui:check             # src/ui·src/hooks가 ui.lock.json 그대로인지 — CI에서 돈다
+pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 파일만 알림 (아무것도 안 바꿈)
+```
+
+- `ui:update`는 이 패키지 `theme.css`를 쓰는 빈 프로젝트에 shadcn CLI(버전은 `scripts/ui.mjs`의 `SHADCN`)로 받은 뒤 import만 패키지 안 경로로 바꾼다(`"cn"`→`"../cn"`, `@/components/ui/x`→`./x`, `@/hooks/x`→`../hooks/x`). 그래서 card·dialog 제목의 `font-heading`처럼 테마에 따라 CLI가 넣는 클래스도 원본 그대로다.
+- shadcn 레지스트리는 버전이 고정되지 않는다. 같은 CLI로도 날마다 결과가 바뀔 수 있어서 CI는 "마지막으로 받은 것과 같은가"만 막고, 최신과의 차이는 `ui:upstream`으로 가끔 본다.
+- 원본은 shadcn 코드 그대로라 react-hooks v7 린트 규칙에 걸리는 곳이 있다(carousel·use-mobile의 effect 안 setState). 프로젝트는 `node_modules`를 린트하지 않으니 문제없고, 이 저장소에 린트를 넣으면 `src/ui`·`src/hooks`는 뺀다.
+
+## 고치기·배포
 
 1. 이 저장소에서 고친다. 프로젝트 화면에서 확인하려면 `pnpm pack` 후 프로젝트에서 `pnpm add ../logjoa-ui/logjoa-ui-x.y.z.tgz`. (`pnpm link`는 이 저장소의 devDependencies React를 따로 읽어 React가 둘이 된다.)
 2. `package.json` 버전을 올리고 커밋, `git tag vX.Y.Z && git push origin main vX.Y.Z` (가벼운 태그라 `--follow-tags`로는 안 올라간다).
 3. 각 프로젝트에서 `#vX.Y.Z`로 바꾸고 `pnpm install`.
 
-컴포넌트를 새로 받을 때(`shadcn add`)는 아무 프로젝트에서 받은 뒤 `src/components`로 옮기고 import를 상대 경로(`./button`, `../cn`)로 바꾼다.
+## 바뀐 것
+
+- v0.3.0: `src/components`를 `src/ui`(원본)·`src/custom`(커스텀)으로 나눔. dialog(닫기 버튼 먼저 사라짐)·carousel·use-mobile을 원본으로 되돌림. `smart-date-input`은 `custom/`으로(import 경로 `@logjoa/ui/custom/smart-date-input`), devlog user-history의 날짜 입력을 `NormalizedDateInput`으로 들여옴. `ui:update`·`ui:check`·`ui:upstream` 추가.
+- v0.2.0: mylog 전용 variant(Button `glass`·`pill`·`icon-round`, Tabs `pill`·`glass`, DropdownMenu `size="lg"`)와 그 토큰(`--shadow-ink`·`--shadow-sheen*`·`--ease-fluid`)을 뺌.
+- v0.1.0: devlog ui 컴포넌트·테마로 시작.

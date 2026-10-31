@@ -18,3 +18,5 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
+      # src/ui·src/hooks 가 마지막으로 받은 shadcn 원본 그대로인지 (손으로 고치면 실패)
+      - run: pnpm ui:check

@@ -1,6 +1,6 @@
 {
   "name": "@logjoa/ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "logjoa 웹 프로젝트 공통 shadcn 컴포넌트·테마",
   "type": "module",
@@ -11,19 +11,24 @@
     "./theme.css": "./src/theme.css",
     "./cn": "./src/cn.ts",
     "./hooks/*": "./src/hooks/*.ts",
-    "./*": "./src/components/*.tsx"
+    "./custom/*": "./src/custom/*.tsx",
+    "./*": "./src/ui/*.tsx"
   },
   "files": [
     "src"
   ],
   "packageManager": "pnpm@10.18.3",
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "ui:update": "node scripts/ui.mjs update",
+    "ui:check": "node scripts/ui.mjs check",
+    "ui:upstream": "node scripts/ui.mjs upstream"
   },
   "peerDependencies": {
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
     "cn": "^0.5.1",
+    "dayjs": "^1.11.0",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^1.65.0",
     "next-themes": "^0.4.6",
@@ -35,13 +40,30 @@
     "vaul": "^1.1.2"
   },
   "peerDependenciesMeta": {
-    "cmdk": { "optional": true },
-    "embla-carousel-react": { "optional": true },
-    "next-themes": { "optional": true },
-    "react-day-picker": { "optional": true },
-    "recharts": { "optional": true },
-    "sonner": { "optional": true },
-    "vaul": { "optional": true }
+    "cmdk": {
+      "optional": true
+    },
+    "embla-carousel-react": {
+      "optional": true
+    },
+    "next-themes": {
+      "optional": true
+    },
+    "react-day-picker": {
+      "optional": true
+    },
+    "recharts": {
+      "optional": true
+    },
+    "sonner": {
+      "optional": true
+    },
+    "vaul": {
+      "optional": true
+    },
+    "dayjs": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/react": "^19",
@@ -49,9 +71,11 @@
     "class-variance-authority": "^0.7.1",
     "cmdk": "^1.1.1",
     "cn": "^0.5.1",
+    "dayjs": "^1.11.23",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^1.65.0",
     "next-themes": "^0.4.6",
+    "prettier": "^3.9.10",
     "radix-ui": "^1.8.1",
     "react": "^19.3.1",
     "react-day-picker": "^10.0.2",

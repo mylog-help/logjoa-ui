@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { X } from "lucide-react";
-import { Input } from "./input";
+import { Input } from "../ui/input";
 import { cn } from "../cn";
 
 /**

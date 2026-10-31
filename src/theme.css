@@ -5,7 +5,8 @@
 */
 
 /* 공용 컴포넌트의 클래스를 Tailwind가 읽도록 — 경로는 이 파일 기준이라 쓰는 쪽은 따로 지정하지 않는다 */
-@source "./components";
+@source "./ui";
+@source "./custom";
 
 @custom-variant dark (&:is(.dark *));
 
