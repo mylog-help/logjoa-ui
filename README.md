@@ -5,7 +5,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 shadcn 컴포넌트와 �
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.1.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.2.0"
 ```
 
 ```ts
@@ -28,23 +28,19 @@ import { cn } from "@logjoa/ui/cn";
 - `@shadcn/lint`의 `no-restyle`이 이 패키지 컴포넌트를 알아보게 `components.json`의 `aliases.ui`를 `"@logjoa/ui"`로.
 - `cmdk`·`vaul`·`sonner`·`recharts` 등은 선택 peer 의존성 — 그 컴포넌트를 쓰는 프로젝트만 설치한다.
 
-## shadcn 기본에 더한 것
+## shadcn 원본과 다른 것
 
-나머지는 shadcn(radix-nova) 그대로라 모양·사용법은 [shadcn 문서](https://ui.shadcn.com/docs/components)를 본다. 아래만 이 패키지에서 더했다. 쓰는 곳은 2026-10-31 기준.
+`src/components`는 shadcn(radix-nova, lucide) 원본을 기준으로 한다. 모양·사용법은 [shadcn 문서](https://ui.shadcn.com/docs/components)를 본다. 원본과 다른 것은 아래뿐이다(2026-10-31 기준, shadcn CLI 4.23으로 새로 받아 줄 단위 비교).
 
-| 컴포넌트                     | 추가                | 모양                                                    | 쓰는 곳                                                                                 |
-| ---------------------------- | ------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `Button`                     | `variant="glass"`   | 반투명 유리 + 윗선 하이라이트 + 떠 있는 그림자          | mylog `site-header.tsx`(오른쪽 아래 테마 버튼, `ThemeToggle variant`)                   |
-| `Button`                     | `size="pill"`       | 높이 44px 알약, primary 섞인 그림자, 누르면 살짝 줄어듦 | mylog `marketing/demo-frame.tsx`, `viewer/drop-zone.tsx`                                |
-| `Button`                     | `size="icon-round"` | 32px 원형 아이콘 버튼                                   | mylog `theme-toggle.tsx`                                                                |
-| `TabsList`                   | `variant="pill"`    | 둥근 트레이 안 세그먼트, 선택 탭이 카드처럼 떠오름      | mylog `marketing/features-tabs.tsx`                                                     |
-| `TabsList`                   | `variant="glass"`   | 스크롤을 따라오는 반투명 탭 줄                          | mylog `viewer/viewer-app.tsx`                                                           |
-| `DropdownMenuContent`·`Item` | `size="lg"`         | 더 둥글고 넓은 메뉴(알약 버튼 옆에 붙는 메뉴용)         | mylog `site-header.tsx`("더 보기"), `language-links.tsx` — Content와 Item을 함께 `lg`로 |
-| `DialogContent`              | (기본 동작)         | 닫히는 동안 닫기 버튼이 먼저 사라짐                     | 모든 대화상자                                                                           |
-| `ScrollArea`                 | (컴포넌트)          | shadcn `scroll-area` 그대로                             | mylog에서 가져옴                                                                        |
+| 파일                   | 다른 점                                                                       | 쓰는 쪽에서 보이는 차이         |
+| ---------------------- | ----------------------------------------------------------------------------- | ------------------------------- |
+| `dialog.tsx`           | 닫히는 동안 닫기 버튼이 먼저 사라짐                                           | 모든 대화상자의 닫힘 애니메이션 |
+| `carousel.tsx`         | 이전·다음 가능 여부를 `useSyncExternalStore`로 추적(react-hooks v7 린트 대응) | 없음                            |
+| `hooks/use-mobile.ts`  | `useSyncExternalStore`로 구현, 서버 렌더에서는 `false`                        | 없음                            |
+| `smart-date-input.tsx` | shadcn에 없는 직접 만든 컴포넌트(devlog에서 옴, devlog만 씀)                  | —                               |
 
-- `glass`·`pill` 계열은 `theme.css`의 `--shadow-ink`·`--shadow-sheen*`·`--ease-fluid`를 쓴다. 이 토큰을 프로젝트에서 덮어쓰면 모양이 바뀐다.
-- variant를 새로 더하면 이 표에도 적는다. 한 프로젝트에서만 쓰는 모양이면 패키지에 넣기 전에 그 프로젝트에서 감싸 쓰는 것으로 충분한지 먼저 본다.
+- 설치할 때 shadcn이 넣는 `font-heading` 클래스(card·dialog·sheet 등 제목)는 `theme.css`에 `--font-heading`이 있어서 들어간 것이다 — 원본과 같다.
+- 한 프로젝트에서만 쓰는 모양은 패키지에 넣지 않는다. 그 프로젝트에서 감싸 쓰거나 원본 옵션으로 맞춘다. (v0.1.0에 있던 mylog 전용 variant — Button `glass`·`pill`·`icon-round`, Tabs `pill`·`glass`, DropdownMenu `size="lg"` — 는 v0.2.0에서 뺐다.)
 
 ## 고치기
 

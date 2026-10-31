@@ -30,11 +30,6 @@ const tabsListVariants = cva(
       variant: {
         default: "bg-muted",
         line: "gap-1 bg-transparent",
-        // 마케팅: 트레이 안에 앉은 둥근 세그먼트 컨트롤.
-        pill: "gap-1 rounded-full bg-foreground/[0.035] p-1.5 ring-1 ring-border/60 group-data-horizontal/tabs:h-auto",
-        // 스크롤을 따라오는 탭 줄: 뒤 내용이 비치는 유리.
-        glass:
-          "bg-card/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.7),0_12px_28px_-20px_hsl(var(--shadow-ink)/0.7)] ring-1 ring-border/60 backdrop-blur-xl dark:shadow-sheen-dim",
       },
     },
     defaultVariants: {
@@ -70,8 +65,6 @@ function TabsTrigger({
         "relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 dark:text-muted-foreground dark:hover:text-foreground group-data-[variant=default]/tabs-list:data-active:shadow-sm group-data-[variant=line]/tabs-list:data-active:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent dark:group-data-[variant=line]/tabs-list:data-active:border-transparent dark:group-data-[variant=line]/tabs-list:data-active:bg-transparent",
         "data-active:bg-background data-active:text-foreground dark:data-active:border-input dark:data-active:bg-input/30 dark:data-active:text-foreground",
-        "group-data-[variant=pill]/tabs-list:rounded-full group-data-[variant=pill]/tabs-list:px-5 group-data-[variant=pill]/tabs-list:duration-500 group-data-[variant=pill]/tabs-list:ease-fluid group-data-[variant=pill]/tabs-list:data-active:bg-card group-data-[variant=pill]/tabs-list:data-active:shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_8px_18px_-12px_hsl(var(--shadow-ink)/0.6)] dark:group-data-[variant=pill]/tabs-list:data-active:border-transparent dark:group-data-[variant=pill]/tabs-list:data-active:bg-card dark:group-data-[variant=pill]/tabs-list:data-active:shadow-[inset_0_1px_0_rgba(255,255,255,0.07)]",
-        "group-data-[variant=glass]/tabs-list:px-4",
         "after:absolute after:bg-foreground after:opacity-0 after:transition-opacity group-data-horizontal/tabs:after:inset-x-0 group-data-horizontal/tabs:after:bottom-[-5px] group-data-horizontal/tabs:after:h-0.5 group-data-vertical/tabs:after:inset-y-0 group-data-vertical/tabs:after:-right-1 group-data-vertical/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-active:after:opacity-100",
         className,
       )}

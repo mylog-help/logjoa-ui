@@ -18,9 +18,6 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        // 화면 위에 떠 있는 버튼(오른쪽 아래 테마 전환). 뒤 내용이 비치는 반투명 유리.
-        glass:
-          "border-border/60 bg-background/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_14px_34px_-20px_hsl(var(--shadow-ink)/0.6)] backdrop-blur-xl hover:bg-background/90 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_14px_34px_-20px_rgba(0,0,0,0.8)]",
       },
       size: {
         default:
@@ -34,9 +31,6 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
-        "icon-round": "size-8 rounded-full",
-        // 마케팅·뷰어의 큰 주요 동작. 그림자에 primary 를 섞어 바탕색을 따라간다.
-        pill: "h-11 gap-2 rounded-full px-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_18px_40px_-22px_color-mix(in_oklch,var(--primary)_70%,transparent)] duration-500 ease-fluid active:scale-[0.98]",
       },
     },
     defaultVariants: {

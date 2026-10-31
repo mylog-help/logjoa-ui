@@ -1,6 +1,5 @@
 /*
-  logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 테마 — shadcn neutral 색·상태 색·radius·글꼴,
-  그리고 공용 컴포넌트의 variant가 쓰는 토큰(그림자 잉크·윗선 하이라이트·감속 곡선).
+  logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 테마 — shadcn neutral 색·상태 색·radius·글꼴.
   쓰는 쪽은 globals.css에서 `@import "tailwindcss";` 뒤에 `@import "@logjoa/ui/theme.css";`.
   프로젝트에만 쓰는 토큰은 각자의 globals.css에 둔다.
 */
@@ -60,16 +59,6 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* 공용 variant(Button glass·pill, Tabs pill·glass)가 쓰는 토큰 */
-@theme {
-  /* 안쪽 윗선 하이라이트 */
-  --shadow-sheen: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-sheen-soft: inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  --shadow-sheen-dim: inset 0 1px 0 rgba(255, 255, 255, 0.06); /* 다크 */
-  /* 무게감 있는 스프링처럼 끝을 길게 끄는 감속 곡선 */
-  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
-}
-
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -110,8 +99,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  /* 떠 있는 요소 그림자의 잉크색(hsl 성분) */
-  --shadow-ink: 0deg 0% 40%;
 }
 
 .dark {
@@ -152,5 +139,4 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  --shadow-ink: 0deg 0% 4%;
 }
