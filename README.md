@@ -16,7 +16,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.4.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.5.0"
 ```
 
 ```ts
@@ -73,6 +73,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.5.0: 원본 `native-select` 추가(mylog 공유 게시판 필터의 `<select>`).
 - v0.4.0: 원본 `alert` 추가(devlog 정책 안내 박스). 커스텀 `FullscreenMenu` 추가(mylog 모바일 메뉴).
 - v0.3.0: `src/components`를 `src/ui`(원본)·`src/custom`(커스텀)으로 나눔. dialog(닫기 버튼 먼저 사라짐)·carousel·use-mobile을 원본으로 되돌림. `smart-date-input`은 `custom/`으로(import 경로 `@logjoa/ui/custom/smart-date-input`), devlog user-history의 날짜 입력을 `NormalizedDateInput`으로 들여옴. `ui:update`·`ui:check`·`ui:upstream` 추가.
 - v0.2.0: mylog 전용 variant(Button `glass`·`pill`·`icon-round`, Tabs `pill`·`glass`, DropdownMenu `size="lg"`)와 그 토큰(`--shadow-ink`·`--shadow-sheen*`·`--ease-fluid`)을 뺌.
