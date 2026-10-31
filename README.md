@@ -16,7 +16,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.6.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.9.0"
 ```
 
 ```ts
@@ -47,17 +47,20 @@ import { cn } from "@logjoa/ui/cn";
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
 | `SmartDateInput`      | 입력하는 동안 `2026`·`202601`·`260101`·`2026/1/15`·`2026.01` 등을 해석해 결과를 보여 줌(연도만이면 "대략")                             | devlog my-history (순간·인물 대화상자, 경력 폼)   |
 | `NormalizedDateInput` | 입력칸을 벗어날 때 `yyyy-MM-dd`로 맞춤, 못 바꾸면 `invalidMessage`를 띄우고 빈 값을 올림. `normalizeDateString`도 내보냄               | devlog user-history (직원·등록 폼, 개인 타임라인) |
-| `FullscreenMenu`      | 화면 전체를 덮는 모바일 메뉴(반투명 배경·강한 블러·페이드). Radix Dialog 기반, `Trigger`·`Content`(`description` 필수)·`Title`·`Close` | mylog 헤더 햄버거 메뉴                            |
+| `FullscreenMenu`      | 화면 전체를 덮는 모바일 메뉴(반투명 배경·강한 블러·페이드). Radix Dialog 기반, `Trigger`·`Content`(`description` 필수)·`Title`·`Close` | (지금은 없음 — mylog 헤더가 v0.9.0에서 `SiteHeader`로 옮김) |
 | `PageHeader`          | 페이지 상단 제목(`h1`)·설명·오른쪽 액션. 좁은 화면은 세로, `sm` 이상은 가로                                                            | devlog 기능 페이지, mobilog 업무 화면             |
 | `Inner`               | 콘텐츠 폭(`narrow`·`default`·`wide`)과 좌우 여백 `px-4 md:px-6`. `default`는 `wide` 틀 안에서 왼쪽 정렬                                | devlog 전반, mobilog                              |
 | `TableBase`           | 열 정의로 그리는 표. 행 선택(일괄 편집)·`md` 미만 카드 보기(`mobileCards`)·남은 높이 채우기(`fillHeight`)                              | mobilog 업무 목록, devlog                         |
 | `AdminShell`          | 관리자 화면 틀 — 위쪽 바(브랜드 네모 로고·구역 이름·`actions`), 왼쪽 `nav` 자리, 본문(`Inner wide`). 상태 없음, `linkComponent`로 라우터 Link를 받음 | devlog·mobilog·mylog 관리자 layout                |
 | `AdminNav`            | `AdminShell` 왼쪽 메뉴. 묶음(`groups`)별 링크, 활성 표시(`secondary`), `lg` 미만은 "메뉴" 버튼 + 왼쪽 `Sheet`. 현재 경로·Link는 쓰는 쪽이 넘김 | devlog·mylog 관리자 메뉴                          |
+| `SiteHeader`          | 사이트 위쪽 바 — 브랜드(네모 로고), 내비게이션(링크·드롭다운 `{ label, groups }`), 오른쪽 `actions`. `lg` 미만은 내비게이션을 오른쪽 `Sheet`로(맨 아래 `menuFooter`). 활성 표시(`secondary`)는 `currentPath`로, 앵커(`#`) 링크는 활성으로 치지 않음. `ref`·`sticky` 받음 | devlog·mobilog·mylog 사이트 헤더 |
+| `SiteFooter`          | 사이트 아래쪽 — 브랜드·소개·소셜, 링크 묶음(`groups`), 구분선 아래 작은 글자(`children`, `<p>` 안 링크에 밑줄). 상태 없음(서버 컴포넌트에서 그대로) | devlog·mobilog·mylog 사이트 푸터 |
 
 - 두 날짜 입력은 동작이 달라 따로 둔다. 원래 이름이 둘 다 `SmartDateInput`이었는데 user-history 쪽을 `NormalizedDateInput`으로 바꿨다(v0.3.0).
 - `FullscreenMenu`는 shadcn `Sheet`(옆에서 밀려 들어오는 패널)로는 같은 모양이 안 나와 따로 둔다(v0.4.0).
 - `PageHeader`·`Inner`·`TableBase`는 devlog·mobilog에 글자 하나 다르지 않게 복사돼 있던 것을 옮겼다(v0.7.0).
 - `AdminShell`의 본문은 블록 흐름이다. 첫 줄 `PageHeader`의 `mb-8`이 본문과의 간격이 된다. 접근 확인(guard)은 넣지 않는다 — 쓰는 쪽 layout에서 한다(v0.8.0).
+- `SiteHeader`·`SiteFooter`는 세 프로젝트 헤더·푸터를 기본 모양으로 맞춘 것이다. 로그인 여부·언어 선택·테마 전환은 각 프로젝트가 `actions`에 넣는다(v0.9.0).
 - 새 커스텀을 넣으면 이 표에 적는다. 원본에 모양만 더하는 것이면 `src/ui`를 고치지 말고 `src/custom`에서 원본을 감싼다.
 
 ## 원본 받기·확인
@@ -80,6 +83,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.9.0: 커스텀 `SiteHeader`·`SiteFooter` 추가(세 프로젝트 사이트 헤더·푸터 공통).
 - v0.8.0: 커스텀 `AdminShell`·`AdminNav` 추가(세 프로젝트 관리자 화면 공통 틀).
 - v0.7.0: 커스텀 `PageHeader`·`Inner`·`TableBase` 추가(devlog·mobilog에 똑같이 복사돼 있던 페이지 제목·콘텐츠 폭·표).
 - v0.6.0: 원본 `item` 추가(아바타·이름 같은 목록 행).
