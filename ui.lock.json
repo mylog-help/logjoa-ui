@@ -30,6 +30,7 @@
     "ui/hover-card.tsx": "ba9e9b4e462b9bfb339fbaafe8da6b412b3ac45ac0adafd11efeb754fe4e30d9",
     "ui/input-group.tsx": "797fc950c40978f5763c75343772f75bdd9cf5d5f09b584ceaf05208a2591087",
     "ui/input.tsx": "57cdc4fb2289251cd923a91a1088cea1a553a3cf99f56e02f5834541e0fc14d0",
+    "ui/item.tsx": "6fbbccc2aa14f1af6c4486a7cec7570d81f9bda33473a2375d6dd68c3283bc34",
     "ui/label.tsx": "ea65f4e639b325796d31edc1251b5e7b2cdbe7cecdd7e3962edf1a21effabe5e",
     "ui/native-select.tsx": "24c542c231452a0a30682e127f652fd81aaa9ffb41d390e93f7f29a39d2ed9a0",
     "ui/pagination.tsx": "29f2f470619b3daeec1b80588c3615f8199acfb10467d2d823e5ca0a7b5b6c3e",
