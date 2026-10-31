@@ -48,9 +48,13 @@ import { cn } from "@logjoa/ui/cn";
 | `SmartDateInput`      | 입력하는 동안 `2026`·`202601`·`260101`·`2026/1/15`·`2026.01` 등을 해석해 결과를 보여 줌(연도만이면 "대략")                             | devlog my-history (순간·인물 대화상자, 경력 폼)   |
 | `NormalizedDateInput` | 입력칸을 벗어날 때 `yyyy-MM-dd`로 맞춤, 못 바꾸면 `invalidMessage`를 띄우고 빈 값을 올림. `normalizeDateString`도 내보냄               | devlog user-history (직원·등록 폼, 개인 타임라인) |
 | `FullscreenMenu`      | 화면 전체를 덮는 모바일 메뉴(반투명 배경·강한 블러·페이드). Radix Dialog 기반, `Trigger`·`Content`(`description` 필수)·`Title`·`Close` | mylog 헤더 햄버거 메뉴                            |
+| `PageHeader`          | 페이지 상단 제목(`h1`)·설명·오른쪽 액션. 좁은 화면은 세로, `sm` 이상은 가로                                                            | devlog 기능 페이지, mobilog 업무 화면             |
+| `Inner`               | 콘텐츠 폭(`narrow`·`default`·`wide`)과 좌우 여백 `px-4 md:px-6`. `default`는 `wide` 틀 안에서 왼쪽 정렬                                | devlog 전반, mobilog                              |
+| `TableBase`           | 열 정의로 그리는 표. 행 선택(일괄 편집)·`md` 미만 카드 보기(`mobileCards`)·남은 높이 채우기(`fillHeight`)                              | mobilog 업무 목록, devlog                         |
 
 - 두 날짜 입력은 동작이 달라 따로 둔다. 원래 이름이 둘 다 `SmartDateInput`이었는데 user-history 쪽을 `NormalizedDateInput`으로 바꿨다(v0.3.0).
 - `FullscreenMenu`는 shadcn `Sheet`(옆에서 밀려 들어오는 패널)로는 같은 모양이 안 나와 따로 둔다(v0.4.0).
+- `PageHeader`·`Inner`·`TableBase`는 devlog·mobilog에 글자 하나 다르지 않게 복사돼 있던 것을 옮겼다(v0.7.0).
 - 새 커스텀을 넣으면 이 표에 적는다. 원본에 모양만 더하는 것이면 `src/ui`를 고치지 말고 `src/custom`에서 원본을 감싼다.
 
 ## 원본 받기·확인
@@ -73,6 +77,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.7.0: 커스텀 `PageHeader`·`Inner`·`TableBase` 추가(devlog·mobilog에 똑같이 복사돼 있던 페이지 제목·콘텐츠 폭·표).
 - v0.6.0: 원본 `item` 추가(아바타·이름 같은 목록 행).
 - v0.5.0: 원본 `native-select` 추가(mylog 공유 게시판 필터의 `<select>`).
 - v0.4.0: 원본 `alert` 추가(devlog 정책 안내 박스). 커스텀 `FullscreenMenu` 추가(mylog 모바일 메뉴).
