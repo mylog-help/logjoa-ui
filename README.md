@@ -45,7 +45,7 @@ import { cn } from "@logjoa/ui/cn";
 ## 고치기
 
 1. 이 저장소에서 고친다. 프로젝트 화면에서 확인하려면 `pnpm pack` 후 프로젝트에서 `pnpm add ../logjoa-ui/logjoa-ui-x.y.z.tgz`. (`pnpm link`는 이 저장소의 devDependencies React를 따로 읽어 React가 둘이 된다.)
-2. `package.json` 버전을 올리고 커밋, `git tag vX.Y.Z && git push --follow-tags`.
+2. `package.json` 버전을 올리고 커밋, `git tag vX.Y.Z && git push origin main vX.Y.Z` (가벼운 태그라 `--follow-tags`로는 안 올라간다).
 3. 각 프로젝트에서 `#vX.Y.Z`로 바꾸고 `pnpm install`.
 
 컴포넌트를 새로 받을 때(`shadcn add`)는 아무 프로젝트에서 받은 뒤 `src/components`로 옮기고 import를 상대 경로(`./button`, `../cn`)로 바꾼다.
