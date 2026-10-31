@@ -20,6 +20,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
+import { Brand, type BrandInfo } from "./brand";
 import { Inner } from "./inner";
 
 export type SiteNavLink = {
@@ -63,7 +64,7 @@ type LinkLike = React.ElementType<{
 
 type SiteHeaderProps = {
   /** 왼쪽 브랜드. `logo` 는 7×7 기본색 네모 안에 들어간다(`AdminShell` 과 같다). */
-  brand: { name: React.ReactNode; logo?: React.ReactNode; href: string };
+  brand: BrandInfo;
   /** 가운데 내비게이션. `lg` 이상은 위쪽 바에, 미만은 오른쪽 서랍에. */
   nav?: SiteNavItem[];
   /**
@@ -110,31 +111,6 @@ function linkProps(link: SiteNavLink, active: boolean) {
     ...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {}),
     ...link.data,
   };
-}
-
-function Brand({
-  brand,
-  Link,
-  onClick,
-}: {
-  brand: SiteHeaderProps["brand"];
-  Link: LinkLike;
-  onClick?: () => void;
-}) {
-  return (
-    <Link
-      href={brand.href}
-      onClick={onClick}
-      className="flex shrink-0 items-center gap-2 font-semibold"
-    >
-      {brand.logo && (
-        <span className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary text-sm font-bold text-primary-foreground [&_img]:size-full [&_img]:object-cover [&_svg]:size-4">
-          {brand.logo}
-        </span>
-      )}
-      {brand.name}
-    </Link>
-  );
 }
 
 function DesktopMenu({
@@ -241,7 +217,7 @@ export function SiteHeader({
       )}
     >
       <Inner size="wide" className="flex h-14 items-center gap-2">
-        <Brand brand={brand} Link={Link} />
+        <Brand brand={brand} linkComponent={Link} />
 
         {nav.length > 0 && (
           <nav
@@ -291,7 +267,7 @@ export function SiteHeader({
               <SheetContent side="right" className="overflow-y-auto">
                 <SheetHeader>
                   <SheetTitle>
-                    <Brand brand={brand} Link={Link} onClick={close} />
+                    <Brand brand={brand} linkComponent={Link} onClick={close} />
                   </SheetTitle>
                   <SheetDescription className="sr-only">
                     {navLabel}

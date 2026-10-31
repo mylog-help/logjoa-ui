@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.10.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.11.0"
 ```
 
 ```ts
@@ -56,6 +56,9 @@ import { cn } from "@logjoa/ui/cn";
 | `AdminNav`            | `AdminShell` 왼쪽 메뉴. 묶음(`groups`)별 링크, 활성 표시(`secondary`), `lg` 미만은 "메뉴" 버튼 + 왼쪽 `Sheet`. 현재 경로·Link는 쓰는 쪽이 넘김 | devlog·mylog 관리자 메뉴                          |
 | `SiteHeader`          | 사이트 위쪽 바 — 브랜드(네모 로고), 내비게이션(링크·드롭다운 `{ label, groups }`), 오른쪽 `actions`. `lg` 미만은 내비게이션을 오른쪽 `Sheet`로(맨 아래 `menuFooter`). 활성 표시(`secondary`)는 `currentPath`로, 앵커(`#`) 링크는 활성으로 치지 않음. `ref`·`sticky` 받음 | devlog·mobilog·mylog 사이트 헤더 |
 | `SiteFooter`          | 사이트 아래쪽 — 브랜드·소개·소셜, 링크 묶음(`groups`), 구분선 아래 작은 글자(`children`, `<p>` 안 링크에 밑줄). 상태 없음(서버 컴포넌트에서 그대로) | devlog·mobilog·mylog 사이트 푸터 |
+| `Brand`               | 네모 로고 + 이름 링크. `AdminShell`·`SiteHeader`·`SiteFooter`·`AuthShell`이 같이 씀. 상태 없음 | 위 블록들, mobilog 회사 등록 화면 |
+| `AuthShell`           | 로그인·가입 화면 틀 — 왼쪽 위 브랜드·`actions`, 가운데 폼(`max-w-sm`), 넓은 화면 오른쪽 `aside` 패널(`bg-muted`, 없으면 한 단). 상태 없음 | devlog·mobilog·mylog 인증 화면 |
+| `AuthHeader`·`AuthFooter` | 인증 폼 위 제목(`h1`)·설명(`icon` 선택), 아래 전환 문구(줄마다 `<p>`, 링크 밑줄). 구분선은 원본 `FieldSeparator`, 입력은 원본 `Field` | devlog·mobilog·mylog 인증 화면 |
 
 - 두 날짜 입력은 동작이 달라 따로 둔다. 원래 이름이 둘 다 `SmartDateInput`이었는데 user-history 쪽을 `NormalizedDateInput`으로 바꿨다(v0.3.0).
 - `FullscreenMenu`는 shadcn `Sheet`(옆에서 밀려 들어오는 패널)로는 같은 모양이 안 나와 따로 둔다(v0.4.0).
@@ -111,6 +114,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.11.0: 커스텀 `AuthShell`·`AuthHeader`·`AuthFooter`(세 프로젝트 인증 화면 공통)·`Brand` 추가. `AdminShell`·`SiteHeader`·`SiteFooter`의 브랜드도 `Brand`로.
 - v0.10.1: `SiteHeader` 메뉴를 Button 기본 크기(`h-8`·14px)로, 서랍 링크는 `lg`. `SiteFooter` 링크 묶음은 브랜드 옆 남은 폭을 고르게 나누고(가운데 빈칸 없앰), 묶음 제목 12px, 좁은 화면 링크 터치 영역을 넓힘. 두 블록 모두 `break-keep`(한국어 단어 중간 줄바꿈 방지).
 - v0.10.0: shadcn Typeset 원본 `typeset.css` 추가(`@logjoa/ui/typeset.css`, 긴 글 활자).
 - v0.9.0: 커스텀 `SiteHeader`·`SiteFooter` 추가(세 프로젝트 사이트 헤더·푸터 공통).

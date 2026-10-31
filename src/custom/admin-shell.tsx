@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "../cn";
+import { Brand, type BrandInfo } from "./brand";
 import { Inner } from "./inner";
 
 type LinkLike = React.ElementType<{
@@ -13,7 +14,7 @@ type AdminShellProps = {
    * 왼쪽 위 브랜드. 누르면 `href`(보통 관리 홈)로 간다.
    * `logo` 는 7×7 기본색 네모 안에 들어간다 — 글자 한 자, 아이콘, `<img>` 모두 된다.
    */
-  brand: { name: React.ReactNode; logo?: React.ReactNode; href: string };
+  brand: BrandInfo;
   /** 브랜드 옆에 흐리게 붙는 구역 이름. */
   title?: React.ReactNode;
   /** 위쪽 바 오른쪽 (테마 전환·계정 링크 등). */
@@ -43,17 +44,7 @@ export function AdminShell({
     <div className={cn("flex min-h-svh w-full flex-col", className)}>
       <header className="sticky top-0 z-10 border-b bg-background">
         <Inner size="wide" className="flex h-14 items-center gap-2">
-          <Link
-            href={brand.href}
-            className="flex items-center gap-2 font-semibold"
-          >
-            {brand.logo && (
-              <span className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary text-sm font-bold text-primary-foreground [&_img]:size-full [&_img]:object-cover [&_svg]:size-4">
-                {brand.logo}
-              </span>
-            )}
-            {brand.name}
-          </Link>
+          <Brand brand={brand} linkComponent={Link} />
           {title && (
             <span className="text-sm text-muted-foreground">{title}</span>
           )}

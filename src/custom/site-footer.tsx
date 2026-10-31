@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "../cn";
 import { Separator } from "../ui/separator";
+import { Brand, type BrandInfo } from "./brand";
 import { Inner } from "./inner";
 
 export type SiteFooterLink = {
@@ -32,7 +33,7 @@ type LinkLike = React.ElementType<{
 
 type SiteFooterProps = {
   /** 왼쪽 브랜드. `logo` 는 7×7 기본색 네모 안에 들어간다(`SiteHeader` 와 같다). */
-  brand: { name: React.ReactNode; logo?: React.ReactNode; href: string };
+  brand: BrandInfo;
   /** 브랜드 아래 한두 줄 소개. */
   description?: React.ReactNode;
   /** 소개 아래 소셜 링크. */
@@ -83,17 +84,6 @@ export function SiteFooter({
   linkComponent: Link = "a",
   className,
 }: SiteFooterProps) {
-  const brandLink = (
-    <Link href={brand.href} className="flex items-center gap-2 font-semibold">
-      {brand.logo && (
-        <span className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary text-sm font-bold text-primary-foreground [&_img]:size-full [&_img]:object-cover [&_svg]:size-4">
-          {brand.logo}
-        </span>
-      )}
-      {brand.name}
-    </Link>
-  );
-
   return (
     <footer
       className={cn("w-full border-t bg-background break-keep", className)}
@@ -102,7 +92,7 @@ export function SiteFooter({
         {/* 브랜드는 고정 폭, 링크 묶음은 남은 폭을 고르게 나눈다 — 가운데가 비지 않게 */}
         <div className="flex flex-col gap-10 md:flex-row md:gap-16">
           <div className="flex flex-col gap-3 md:w-72 md:shrink-0">
-            {brandLink}
+            <Brand brand={brand} linkComponent={Link} />
             {description && (
               <p className="text-sm text-pretty text-muted-foreground">
                 {description}
