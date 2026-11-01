@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.16.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.17.0"
 ```
 
 ```ts
@@ -66,6 +66,7 @@ import { cn } from "@logjoa/ui/cn";
 | `ThemeToggle`         | 밝은·어두운 테마 전환 아이콘 버튼(next-themes). 아이콘은 CSS(`dark:`)로 바꿔 하이드레이션 경고가 없다 | mylog·mobilog 헤더 |
 | `DemoBanner`          | 공유 데모 계정으로 둘러보는 중이라는 표시. `bar`(헤더 아래 전체 폭 띠)·`box`(고정 사이드바가 있는 앱 본문 맨 위 상자). 문구·오른쪽 버튼은 쓰는 쪽이 정한다 | devlog 헤더 아래, mobilog 업무 화면 |
 | `LanguageMenu`        | 헤더 언어 선택 — 글로브 아이콘 버튼 하나, 누르면 드롭다운(지금 언어에 체크). 실제 링크(`hrefLang`·`aria-current`). 주소는 `items[].href`, next-intl이면 `linkProps={{ locale }}`. 라우터를 모른다 | devlog·mylog 헤더 |
+| `UserMenu`            | 로그인한 사람의 계정 메뉴 — 헤더 아이콘 버튼(기본 `User`, 사진은 `icon`) + 팝오버. 위에서부터 `header`(프로필)·`children`(쓰는 쪽 구역)·`items`(링크)·`footer`(로그아웃). 인증은 모르고 로그아웃 동작은 쓰는 쪽이 넘긴다 | devlog·mylog 헤더 |
 
 - 두 날짜 입력은 동작이 달라 따로 둔다. 원래 이름이 둘 다 `SmartDateInput`이었는데 user-history 쪽을 `NormalizedDateInput`으로 바꿨다(v0.3.0).
 - `FullscreenMenu`는 shadcn `Sheet`(옆에서 밀려 들어오는 패널)로는 같은 모양이 안 나와 따로 둔다(v0.4.0).
@@ -121,6 +122,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.17.0: 커스텀 `UserMenu` 추가(로그인한 사람의 계정 메뉴 — devlog 것을 옮기고 헤더·링크·로그아웃을 props로).
 - v0.16.0: `LanguageMenu` 버튼을 아이콘만 남기도록 바꿈(`items[].short` 제거).
 - v0.15.0: 커스텀 `LanguageMenu` 추가(헤더 언어 선택 — mylog 것을 옮기고 링크 주소·속성을 props로).
 - v0.14.0: 커스텀 `DemoBanner` 추가(공유 데모 계정 안내).
