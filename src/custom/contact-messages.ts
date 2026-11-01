@@ -88,7 +88,7 @@ export const contactMessages = {
     },
     errors: {
       unavailable:
-        "지금은 접수가 되지 않아요. {email} 로 보내 주시면 확인할게요.",
+        "지금은 접수가 되지 않아요. 메일({email})로 보내 주시면 확인할게요.",
     },
     notes: {
       reply: {
@@ -98,7 +98,7 @@ export const contactMessages = {
       },
       mail: {
         title: "메일이 편하면 메일로",
-        description: "이 폼 대신 {email} 로 보내셔도 똑같이 확인해요.",
+        description: "이 폼 대신 메일({email})로 보내셔도 똑같이 확인해요.",
       },
     },
   },
