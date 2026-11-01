@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.18.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.19.0"
 ```
 
 ```ts
@@ -67,6 +67,9 @@ import { cn } from "@logjoa/ui/cn";
 | `DemoBanner`          | 공유 데모 계정으로 둘러보는 중이라는 표시. `bar`(헤더 아래 전체 폭 띠)·`box`(고정 사이드바가 있는 앱 본문 맨 위 상자). 문구·오른쪽 버튼은 쓰는 쪽이 정한다 | devlog 헤더 아래, mobilog 업무 화면 |
 | `LanguageMenu`        | 헤더 언어 선택 — 글로브 아이콘 버튼 하나, 누르면 드롭다운(지금 언어에 체크). 실제 링크(`hrefLang`·`aria-current`). 주소는 `items[].href`, next-intl이면 `linkProps={{ locale }}`. 라우터를 모른다 | devlog·mylog 헤더 |
 | `UserMenu`            | 로그인한 사람의 계정 메뉴 — 헤더 아이콘 버튼(기본 `User`) + 팝오버. 위에서부터 `profile`(사진·이름·이메일, 사진이 없으면 이니셜)·`children`(쓰는 쪽 구역)·`items`(링크)·`signOut`(글자만 빨간 항목, `action` 폼 POST 또는 `onSignOut`). 구역 사이에만 선. 인증은 모른다 | devlog·mylog 헤더 |
+| `ContactPage`         | 문의 페이지 틀 — 왼쪽 제목(h1)·설명·안내 목록(`notes`), 오른쪽 폼 카드(`children`). 좁은 화면에서는 한 단. 서버 컴포넌트로 쓸 수 있다 | devlog·mylog·mobilog `/contact` |
+| `ContactForm`         | 문의 폼 — 라디오 카드 유형, 필수 `*`/"(선택)" 표시, 첨부(이미지·PDF 5MB·3개, 서명 주소로 직접 업로드), 접수번호가 있는 완료 화면. 문의함 API 는 모른다: 서버 액션(`submitAction`·`uploadAction`)을 사이트가 넘긴다(키가 브라우저 코드에 안 들어오게) | devlog·mylog·mobilog `/contact` |
+| `contactMessages`     | `@logjoa/ui/custom/contact-messages` — 문의 화면 문구 ko·en·ja 한 벌(해요체)과 `fillContactText`. 사이트마다 다른 것(설명·유형·안내 한 줄)만 props 로 | 세 사이트 |
 
 - 두 날짜 입력은 동작이 달라 따로 둔다. 원래 이름이 둘 다 `SmartDateInput`이었는데 user-history 쪽을 `NormalizedDateInput`으로 바꿨다(v0.3.0).
 - `FullscreenMenu`는 shadcn `Sheet`(옆에서 밀려 들어오는 패널)로는 같은 모양이 안 나와 따로 둔다(v0.4.0).
@@ -122,6 +125,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.19.0: 문의 화면 한 벌 추가 — `ContactPage`·`ContactForm`·`contactMessages`(세 사이트 문의 화면을 같게).
 - v0.18.0: `UserMenu` 다듬음 — `header`·`footer` 대신 `profile`·`signOut`(글자만 빨간 항목), 구역 사이 선, 열 때 자동 포커스 끔, 기본 너비 `w-72`.
 - v0.17.0: 커스텀 `UserMenu` 추가(로그인한 사람의 계정 메뉴 — devlog 것을 옮기고 헤더·링크·로그아웃을 props로).
 - v0.16.0: `LanguageMenu` 버튼을 아이콘만 남기도록 바꿈(`items[].short` 제거).
