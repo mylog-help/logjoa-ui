@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.19.1"
+pnpm add "github:mylog-help/logjoa-ui#v0.20.0"
 ```
 
 ```ts
@@ -125,6 +125,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.20.0: 문의 화면 손봄 — 좁은 화면에서 폼을 안내보다 먼저 두고, 접수 실패 때 사유·첫 오류 칸으로 포커스·스크롤을 옮기고, 접수 완료 때 완료 문구로 옮김.
 - v0.19.1: 문의 문구의 메일 주소 조사를 "메일(주소)로"로 고침.
 - v0.19.0: 문의 화면 한 벌 추가 — `ContactPage`·`ContactForm`·`contactMessages`(세 사이트 문의 화면을 같게).
 - v0.18.0: `UserMenu` 다듬음 — `header`·`footer` 대신 `profile`·`signOut`(글자만 빨간 항목), 구역 사이 선, 열 때 자동 포커스 끔, 기본 너비 `w-72`.

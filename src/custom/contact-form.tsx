@@ -392,6 +392,37 @@ export function ContactForm({
     if (sent) onSent?.();
   }, [sent, onSent]);
 
+  const formRef = React.useRef<HTMLFormElement>(null);
+  const messageRef = React.useRef<HTMLParagraphElement>(null);
+  const successRef = React.useRef<HTMLHeadingElement>(null);
+
+  // 접수가 끝나면 완료 문구로 옮긴다. 완료 카드는 폼보다 짧아서, 아래쪽 제출 버튼을
+  // 눌렀다면 새 내용이 화면 밖에 남고 스크린리더도 바뀐 걸 알 수 없다.
+  React.useEffect(() => {
+    if (!sent) return;
+    successRef.current?.focus({ preventScroll: true });
+    successRef.current?.scrollIntoView({ block: "center" });
+  }, [sent]);
+
+  // 접수가 안 됐을 때 사유(`message`)나 첫 오류 칸으로 옮긴다. 제출 버튼은 맨 아래라
+  // 위에 뜬 오류는 사용자가 보지 못한다. `state` 는 제출마다 새 객체라 같은 오류가
+  // 다시 나도 다시 옮긴다.
+  React.useEffect(() => {
+    if (state.status !== "error") return;
+    const target =
+      state.message && messageRef.current
+        ? messageRef.current
+        : formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]');
+    if (!target) return;
+    // 라디오 묶음은 묶음 자체가 아니라 안의 첫 칸이 포커스를 받는다.
+    const focusable =
+      target.matches("input, textarea, button, select, [tabindex]")
+        ? target
+        : (target.querySelector<HTMLElement>("button, input") ?? target);
+    focusable.focus({ preventScroll: true });
+    target.scrollIntoView({ block: "center" });
+  }, [state]);
+
   if (sent) {
     return (
       <div className="flex flex-col items-start gap-5">
@@ -402,7 +433,11 @@ export function ContactForm({
           <CheckIcon className="size-6" strokeWidth={1.5} />
         </span>
         <div className="flex flex-col gap-2">
-          <h2 className="text-2xl font-semibold tracking-tight">
+          <h2
+            ref={successRef}
+            tabIndex={-1}
+            className="scroll-mt-24 text-2xl font-semibold tracking-tight outline-none"
+          >
             {messages.success.title}
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
@@ -441,6 +476,7 @@ export function ContactForm({
 
   return (
     <form
+      ref={formRef}
       // `<form action>` 은 결과와 상관없이 폼을 리셋해 오류가 나면 입력이 사라진다.
       // 직접 디스패치하면 리셋이 걸리지 않는다. 브라우저의 required 검증은 그대로 거친다.
       onSubmit={(event) => {
@@ -452,7 +488,9 @@ export function ContactForm({
     >
       {state.message && (
         <p
-          className="rounded-xl border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive"
+          ref={messageRef}
+          tabIndex={-1}
+          className="scroll-mt-24 rounded-xl border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive outline-none"
           role="alert"
         >
           {state.message}

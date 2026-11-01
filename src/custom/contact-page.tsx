@@ -33,18 +33,27 @@ export function ContactPage({
 }) {
   return (
     <Inner className={cn("py-12 sm:py-20", className)}>
-      <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
-        <div className="flex flex-col items-start gap-8">
-          <div className="flex flex-col gap-4">
-            <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-              {title}
-            </h1>
-            <p className="text-base leading-relaxed text-pretty text-muted-foreground">
-              {subtitle}
-            </p>
-          </div>
+      {/*
+        좁은 화면: 제목 → 폼 → 안내 순서로 쌓는다(안내가 폼 앞에 있으면 폼이 첫 화면
+        밖으로 밀린다). 넓은 화면: 왼쪽에 제목·안내, 오른쪽에 폼. 폼이 두 줄에 걸치고
+        남는 높이는 안내 줄이 받는다.
+      */}
+      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-16 lg:gap-y-8">
+        <div className="flex flex-col gap-4 lg:col-start-1 lg:row-start-1">
+          <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+            {title}
+          </h1>
+          <p className="text-base leading-relaxed text-pretty text-muted-foreground">
+            {subtitle}
+          </p>
+        </div>
 
-          {notes.length > 0 && (
+        <div className="rounded-2xl border bg-card p-6 shadow-sm sm:p-8 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          {children}
+        </div>
+
+        {notes.length > 0 && (
+          <div className="lg:col-start-1 lg:row-start-2">
             <ul className="flex w-full flex-col">
               {notes.map((note) => (
                 <li
@@ -66,12 +75,8 @@ export function ContactPage({
                 </li>
               ))}
             </ul>
-          )}
-        </div>
-
-        <div className="rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
-          {children}
-        </div>
+          </div>
+        )}
       </div>
     </Inner>
   );
