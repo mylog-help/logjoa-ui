@@ -11,7 +11,7 @@ export type ContactNote = {
 
 /**
  * 문의 페이지의 틀 — 왼쪽에 제목·설명·안내 목록, 오른쪽에 폼 카드(`children`).
- * 좁은 화면에서는 한 단으로 쌓인다. 세 사이트가 같은 틀을 쓰도록 여기 한 곳에 둔다.
+ * 좁은 화면에서는 제목과 폼만 한 단으로 보인다(안내 목록은 숨긴다). 세 사이트가 같은 틀을 쓰도록 여기 한 곳에 둔다.
  * 서버 컴포넌트로도 쓸 수 있다(상태가 없다).
  */
 export function ContactPage({
@@ -32,29 +32,26 @@ export function ContactPage({
   className?: string;
 }) {
   return (
-    <Inner className={cn("py-12 sm:py-20", className)}>
+    <Inner className={cn("max-w-full py-12 sm:py-20", className)}>
       {/*
-        좁은 화면: 제목 → 폼 → 안내 순서로 쌓는다(안내가 폼 앞에 있으면 폼이 첫 화면
-        밖으로 밀린다). 넓은 화면: 왼쪽에 제목·안내, 오른쪽에 폼. 폼이 두 줄에 걸치고
-        남는 높이는 안내 줄이 받는다.
+        넓은 화면: 왼쪽에 제목·안내, 오른쪽에 폼. 폼이 길어 왼쪽을 세로 가운데에 둔다.
+        폭은 기본 5xl 대신 wide 프레임(7xl)을 다 쓴다 — 5xl 이면 두 단이 좁게 붙는다.
+        좁은 화면: 제목 → 폼만 보인다. 안내 목록은 폼을 첫 화면 밖으로 밀어내서 숨긴다
+        (메일 주소 등 꼭 필요한 말은 폼·접수 실패 문구에도 있다).
       */}
-      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:grid-rows-[auto_1fr] lg:items-start lg:gap-x-16 lg:gap-y-8">
-        <div className="flex flex-col gap-4 lg:col-start-1 lg:row-start-1">
-          <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-            {title}
-          </h1>
-          <p className="text-base leading-relaxed text-pretty text-muted-foreground">
-            {subtitle}
-          </p>
-        </div>
+      <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              {title}
+            </h1>
+            <p className="text-base leading-relaxed text-pretty text-muted-foreground">
+              {subtitle}
+            </p>
+          </div>
 
-        <div className="rounded-2xl border bg-card p-6 shadow-sm sm:p-8 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          {children}
-        </div>
-
-        {notes.length > 0 && (
-          <div className="lg:col-start-1 lg:row-start-2">
-            <ul className="flex w-full flex-col">
+          {notes.length > 0 && (
+            <ul className="hidden w-full flex-col lg:flex">
               {notes.map((note) => (
                 <li
                   key={note.title}
@@ -75,8 +72,12 @@ export function ContactPage({
                 </li>
               ))}
             </ul>
-          </div>
-        )}
+          )}
+        </div>
+
+        <div className="rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
+          {children}
+        </div>
       </div>
     </Inner>
   );

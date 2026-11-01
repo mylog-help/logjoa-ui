@@ -92,13 +92,13 @@ export const contactMessages = {
     },
     notes: {
       reply: {
-        title: "혼자 만들고 혼자 답해요",
+        title: "모든 문의에 답장드려요",
         description:
-          "1인 개발이라 답장이 며칠 걸릴 수 있어요. 확인하면 반드시 답장해요.",
+          "접수된 순서대로 확인하고, 내용에 따라 며칠 걸릴 수 있어요.",
       },
       mail: {
-        title: "메일이 편하면 메일로",
-        description: "이 폼 대신 메일({email})로 보내셔도 똑같이 확인해요.",
+        title: "이메일로도 받아요",
+        description: "메일({email})로 보내셔도 같은 순서로 확인해요.",
       },
     },
   },
@@ -148,13 +148,14 @@ export const contactMessages = {
     },
     notes: {
       reply: {
-        title: "One person builds it and replies",
+        title: "Every inquiry gets a reply",
         description:
-          "It is a one-person project, so a reply can take a few days. We always reply once we have read it.",
+          "We review inquiries in the order they arrive. Some may take a few days.",
       },
       mail: {
-        title: "Prefer email?",
-        description: "You can write to {email} instead of using this form.",
+        title: "Email works too",
+        description:
+          "You can also write to {email}. We review it in the same order.",
       },
     },
   },
@@ -205,14 +206,14 @@ export const contactMessages = {
     },
     notes: {
       reply: {
-        title: "ひとりで作って、ひとりで返信します",
+        title: "すべてのお問い合わせに返信します",
         description:
-          "個人開発のため、返信に数日かかることがあります。確認でき次第、必ず返信します。",
+          "受け付けた順に確認します。内容によっては数日かかる場合があります。",
       },
       mail: {
-        title: "メールのほうが楽なら",
+        title: "メールでも受け付けます",
         description:
-          "このフォームの代わりに {email} へ送っていただいても同じように確認します。",
+          "{email} へ送っていただいても、同じ順番で確認します。",
       },
     },
   },
