@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.23.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.24.0"
 ```
 
 ```ts
@@ -126,6 +126,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.24.0: 비밀번호 재설정 코드 입력 문구(`verifyCode`·`haveCode`·`authValidate.code` 등)를 뺌 — 세 사이트 메일 링크가 `/auth/confirm`(token_hash)으로 어느 기기에서든 열려 코드가 필요 없다.
 - v0.23.0: 인증 문구에 비밀번호 재설정 코드 입력·다시 보내기·링크 만료 문구 추가. `AUTH_PASSWORD_MIN`(8자, 세 사이트 공통 최소 길이 — `authValidate.newPassword` 기본값), `authValidate.code`, `otp_expired` 오류 문장.
 - v0.22.0: 인증 문구 한 벌 추가 — `authMessages`·`authErrorText`·`authValidate`(세 사이트 로그인·가입·비밀번호 재설정 문구와 오류 표시를 같게).
 - v0.20.0: 문의 화면 손봄 — 좁은 화면에서 폼을 안내보다 먼저 두고, 접수 실패 때 사유·첫 오류 칸으로 포커스·스크롤을 옮기고, 접수 완료 때 완료 문구로 옮김.
