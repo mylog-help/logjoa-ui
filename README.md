@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.22.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.23.0"
 ```
 
 ```ts
@@ -59,7 +59,7 @@ import { cn } from "@logjoa/ui/cn";
 | `Brand`               | 네모 로고 + 이름 링크. `AdminShell`·`SiteHeader`·`SiteFooter`·`AuthShell`이 같이 씀. 상태 없음 | 위 블록들, mobilog 회사 등록 화면 |
 | `AuthShell`           | 로그인·가입 화면 틀 — 왼쪽 위 브랜드·`actions`, 가운데 폼(`max-w-sm`), 넓은 화면 오른쪽 `aside` 패널(`bg-muted`, 없으면 한 단). 상태 없음 | devlog·mobilog·mylog 인증 화면 |
 | `AuthHeader`·`AuthFooter` | 인증 폼 위 제목(`h1`)·설명(`icon` 선택), 아래 전환 문구(줄마다 `<p>`, 링크 밑줄). 구분선은 원본 `FieldSeparator`, 입력은 원본 `Field` | devlog·mobilog·mylog 인증 화면 |
-| `authMessages`        | `@logjoa/ui/custom/auth-messages` — 로그인·회원가입·비밀번호 재설정 문구 ko·en·ja 한 벌(해요체, 제목 아래 설명 없음)과 `getAuthMessages`·`fillAuthText`, Supabase 오류를 문장으로 바꾸는 `authErrorText`, 입력칸 검사 `authValidate`(입력칸 아래 `FieldError` 로 보여 준다) | 세 사이트 인증 화면 |
+| `authMessages`        | `@logjoa/ui/custom/auth-messages` — 로그인·회원가입·비밀번호 재설정 문구 ko·en·ja 한 벌(해요체, 제목 아래 설명 없음)과 `getAuthMessages`·`fillAuthText`, Supabase 오류를 문장으로 바꾸는 `authErrorText`, 입력칸 검사 `authValidate`(입력칸 아래 `FieldError` 로 보여 준다)·비밀번호 최소 길이 `AUTH_PASSWORD_MIN` | 세 사이트 인증 화면 |
 | `StatusScreen`        | 404·오류 화면 — 큰 코드·제목(`h1`)·설명·오류 코드(`digest`)·버튼. 원본 `Empty` 위. 레이아웃 안 `min-h-[60vh]`, 밖은 `fullScreen` | devlog·mobilog·mylog `not-found`·`error` |
 | `GlobalErrorScreen`   | `global-error.tsx` 화면 — `<html>`·`<body>` 직접, 전역 CSS 없이 인라인 스타일. `reset` 을 `onRetry` 로 | devlog·mobilog·mylog `global-error` |
 | `EmptyState`          | 빈 목록 안내 — 원본 `Empty` + 점선 테두리(`bordered`, 기본 켜짐)·아이콘·제목·설명·버튼. 쓰는 쪽에서 `Empty` 에 `border` 를 덧칠하지 않게 | devlog 목록 화면, mylog 백업 뷰어 |
@@ -126,6 +126,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.23.0: 인증 문구에 비밀번호 재설정 코드 입력·다시 보내기·링크 만료 문구 추가. `AUTH_PASSWORD_MIN`(8자, 세 사이트 공통 최소 길이 — `authValidate.newPassword` 기본값), `authValidate.code`, `otp_expired` 오류 문장.
 - v0.22.0: 인증 문구 한 벌 추가 — `authMessages`·`authErrorText`·`authValidate`(세 사이트 로그인·가입·비밀번호 재설정 문구와 오류 표시를 같게).
 - v0.20.0: 문의 화면 손봄 — 좁은 화면에서 폼을 안내보다 먼저 두고, 접수 실패 때 사유·첫 오류 칸으로 포커스·스크롤을 옮기고, 접수 완료 때 완료 문구로 옮김.
 - v0.19.1: 문의 문구의 메일 주소 조사를 "메일(주소)로"로 고침.

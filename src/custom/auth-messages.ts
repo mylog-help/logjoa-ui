@@ -44,9 +44,30 @@ export type AuthMessages = {
     sent: string;
     otherEmail: string;
     backToLogin: string;
+    resend: string;
+    resending: string;
+    /** 다시 보내기 대기. `{seconds}` */
+    resendIn: string;
+    resent: string;
+    /** 메일에 6자리 코드도 오는 사이트(devlog·mobilog)에서 코드 입력 화면으로 */
+    haveCode: string;
+  };
+  verifyCode: {
+    title: string;
+    /** `{email}` */
+    description: string;
+    code: string;
+    submit: string;
+    submitting: string;
+    resend: string;
+    resent: string;
+    /** 이메일을 모른 채 들어왔을 때 */
+    missingEmail: string;
   };
   newPassword: {
     title: string;
+    /** 재설정 링크로 들어온 세션을 확인하는 동안 */
+    checking: string;
     password: string;
     passwordConfirm: string;
     submit: string;
@@ -67,6 +88,7 @@ export type AuthMessages = {
     /** `{min}` */
     passwordMin: string;
     passwordMismatch: string;
+    codeLength: string;
   };
   errors: {
     invalidCredentials: string;
@@ -85,6 +107,10 @@ export type AuthMessages = {
     signup: string;
     resetPassword: string;
     newPassword: string;
+    verifyCode: string;
+    invalidCode: string;
+    /** 가입 인증·소셜 로그인 링크가 만료됐거나 이미 쓰였을 때 */
+    linkExpired: string;
   };
 };
 
@@ -123,9 +149,25 @@ export const authMessages = {
       sent: "{email} 주소로 재설정 링크를 보냈어요. 링크를 열면 새 비밀번호를 정할 수 있어요.",
       otherEmail: "다른 이메일로 받기",
       backToLogin: "로그인으로 돌아가기",
+      resend: "메일 다시 받기",
+      resending: "보내는 중…",
+      resendIn: "{seconds}초 뒤에 다시 받을 수 있어요",
+      resent: "메일을 다시 보냈어요.",
+      haveCode: "메일로 받은 코드 입력하기",
+    },
+    verifyCode: {
+      title: "인증 코드 입력",
+      description: "{email} 주소로 받은 6자리 코드를 입력해 주세요.",
+      code: "인증 코드",
+      submit: "확인",
+      submitting: "확인하는 중…",
+      resend: "코드 다시 받기",
+      resent: "코드를 다시 보냈어요.",
+      missingEmail: "이메일을 알 수 없어요. 재설정을 처음부터 다시 해 주세요.",
     },
     newPassword: {
       title: "새 비밀번호",
+      checking: "확인하는 중…",
       password: "새 비밀번호",
       passwordConfirm: "새 비밀번호 확인",
       submit: "비밀번호 바꾸기",
@@ -144,6 +186,7 @@ export const authMessages = {
       passwordRequired: "비밀번호를 입력해 주세요.",
       passwordMin: "비밀번호는 {min}자 이상이어야 해요.",
       passwordMismatch: "비밀번호가 서로 달라요.",
+      codeLength: "6자리 코드를 입력해 주세요.",
     },
     errors: {
       invalidCredentials: "이메일 또는 비밀번호가 맞지 않아요.",
@@ -163,6 +206,10 @@ export const authMessages = {
       signup: "가입하지 못했어요. 잠시 뒤에 다시 해 주세요.",
       resetPassword: "메일을 보내지 못했어요. 잠시 뒤에 다시 해 주세요.",
       newPassword: "비밀번호를 바꾸지 못했어요. 잠시 뒤에 다시 해 주세요.",
+      verifyCode: "코드를 확인하지 못했어요. 잠시 뒤에 다시 해 주세요.",
+      invalidCode: "코드가 맞지 않거나 만료됐어요. 코드를 다시 받아 주세요.",
+      linkExpired:
+        "인증 링크가 만료됐거나 이미 쓰였어요. 로그인하거나 처음부터 다시 해 주세요.",
     },
   },
   en: {
@@ -199,9 +246,26 @@ export const authMessages = {
       sent: "We sent a reset link to {email}. Open it to choose a new password.",
       otherEmail: "Use a different email",
       backToLogin: "Back to log in",
+      resend: "Send the email again",
+      resending: "Sending…",
+      resendIn: "You can resend in {seconds}s",
+      resent: "We sent the email again.",
+      haveCode: "Enter the code from the email",
+    },
+    verifyCode: {
+      title: "Enter code",
+      description: "Enter the 6-digit code we sent to {email}.",
+      code: "Code",
+      submit: "Verify",
+      submitting: "Verifying…",
+      resend: "Send a new code",
+      resent: "We sent a new code.",
+      missingEmail:
+        "We don't know which email to use. Please start the reset again.",
     },
     newPassword: {
       title: "New password",
+      checking: "Checking…",
       password: "New password",
       passwordConfirm: "Confirm new password",
       submit: "Change password",
@@ -220,6 +284,7 @@ export const authMessages = {
       passwordRequired: "Enter your password.",
       passwordMin: "Use at least {min} characters.",
       passwordMismatch: "The passwords don't match.",
+      codeLength: "Enter the 6-digit code.",
     },
     errors: {
       invalidCredentials: "The email or password is incorrect.",
@@ -241,6 +306,11 @@ export const authMessages = {
       resetPassword: "We couldn't send the email. Please try again in a moment.",
       newPassword:
         "We couldn't change your password. Please try again in a moment.",
+      verifyCode: "We couldn't check the code. Please try again in a moment.",
+      invalidCode:
+        "The code is wrong or has expired. Please request a new one.",
+      linkExpired:
+        "This link has expired or was already used. Log in or start again.",
     },
   },
   ja: {
@@ -277,9 +347,26 @@ export const authMessages = {
       sent: "{email} に再設定リンクを送りました。リンクを開くと新しいパスワードを設定できます。",
       otherEmail: "別のメールアドレスで受け取る",
       backToLogin: "ログインに戻る",
+      resend: "メールを再送する",
+      resending: "送信中…",
+      resendIn: "{seconds}秒後に再送できます",
+      resent: "メールを再送しました。",
+      haveCode: "メールに届いたコードを入力する",
+    },
+    verifyCode: {
+      title: "認証コードの入力",
+      description: "{email} に届いた6桁のコードを入力してください。",
+      code: "認証コード",
+      submit: "確認",
+      submitting: "確認中…",
+      resend: "コードを再送する",
+      resent: "コードを再送しました。",
+      missingEmail:
+        "メールアドレスがわかりません。再設定を最初からやり直してください。",
     },
     newPassword: {
       title: "新しいパスワード",
+      checking: "確認中…",
       password: "新しいパスワード",
       passwordConfirm: "新しいパスワード（確認）",
       submit: "パスワードを変更",
@@ -298,6 +385,7 @@ export const authMessages = {
       passwordRequired: "パスワードを入力してください。",
       passwordMin: "パスワードは{min}文字以上にしてください。",
       passwordMismatch: "パスワードが一致しません。",
+      codeLength: "6桁のコードを入力してください。",
     },
     errors: {
       invalidCredentials: "メールアドレスまたはパスワードが正しくありません。",
@@ -321,11 +409,24 @@ export const authMessages = {
         "メールを送信できませんでした。しばらくしてからもう一度お試しください。",
       newPassword:
         "パスワードを変更できませんでした。しばらくしてからもう一度お試しください。",
+      verifyCode:
+        "コードを確認できませんでした。しばらくしてからもう一度お試しください。",
+      invalidCode:
+        "コードが正しくないか、期限が切れています。もう一度受け取ってください。",
+      linkExpired:
+        "リンクの期限が切れたか、すでに使われています。ログインするか、最初からやり直してください。",
     },
   },
 } satisfies Record<"ko" | "en" | "ja", AuthMessages>;
 
 export type AuthLocale = keyof typeof authMessages;
+
+/**
+ * 새로 정하는 비밀번호(가입·재설정·변경)의 최소 길이 — 세 사이트 공통.
+ * Supabase 프로젝트의 Auth → Password 최소 길이도 같은 값으로 둔다.
+ * 로그인은 길이를 보지 않는다(예전 규칙으로 만든 비밀번호도 있다).
+ */
+export const AUTH_PASSWORD_MIN = 8;
 
 /** 지원하지 않는 언어는 한국어로. */
 export function getAuthMessages(locale: string): AuthMessages {
@@ -361,6 +462,7 @@ const errorCodes: Record<string, keyof AuthMessages["errors"]> = {
   over_request_rate_limit: "rateLimit",
   over_email_send_rate_limit: "emailRateLimit",
   request_timeout: "timeout",
+  otp_expired: "invalidCode",
 };
 
 /**
@@ -370,7 +472,7 @@ const errorCodes: Record<string, keyof AuthMessages["errors"]> = {
 export function authErrorText(
   messages: AuthMessages,
   error: AuthErrorLike,
-  action: "login" | "signup" | "resetPassword" | "newPassword",
+  action: "login" | "signup" | "resetPassword" | "newPassword" | "verifyCode",
 ): string {
   // 서버에 닿지 못한 경우(오프라인·DNS 등). supabase-js 는 status 0 으로 준다.
   if (error.name === "AuthRetryableFetchError" || error.status === 0) {
@@ -401,7 +503,7 @@ export const authValidate = {
   newPassword(
     messages: AuthMessages,
     value: string,
-    min: number,
+    min: number = AUTH_PASSWORD_MIN,
   ): string | undefined {
     if (!value) return messages.validation.passwordRequired;
     if (value.length < min)
@@ -413,5 +515,9 @@ export const authValidate = {
     password: string,
   ): string | undefined {
     if (value !== password) return messages.validation.passwordMismatch;
+  },
+  /** 메일로 받은 6자리 숫자 코드 */
+  code(messages: AuthMessages, value: string): string | undefined {
+    if (!/^\d{6}$/.test(value)) return messages.validation.codeLength;
   },
 };
