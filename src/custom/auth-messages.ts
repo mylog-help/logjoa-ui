@@ -73,6 +73,8 @@ export type AuthMessages = {
     passwordRequired: string;
     /** `{min}` */
     passwordMin: string;
+    /** 새 비밀번호 칸 아래 미리 보이는 규칙. `{min}` */
+    passwordHint: string;
     passwordMismatch: string;
   };
   errors: {
@@ -157,6 +159,7 @@ export const authMessages = {
       emailInvalid: "이메일 주소를 다시 확인해 주세요.",
       passwordRequired: "비밀번호를 입력해 주세요.",
       passwordMin: "비밀번호는 {min}자 이상이어야 해요.",
+      passwordHint: "{min}자 이상으로 정해 주세요.",
       passwordMismatch: "비밀번호가 서로 달라요.",
     },
     errors: {
@@ -240,6 +243,7 @@ export const authMessages = {
       emailInvalid: "Check your email address.",
       passwordRequired: "Enter your password.",
       passwordMin: "Use at least {min} characters.",
+      passwordHint: "At least {min} characters.",
       passwordMismatch: "The passwords don't match.",
     },
     errors: {
@@ -325,6 +329,7 @@ export const authMessages = {
       emailInvalid: "メールアドレスをもう一度確認してください。",
       passwordRequired: "パスワードを入力してください。",
       passwordMin: "パスワードは{min}文字以上にしてください。",
+      passwordHint: "{min}文字以上で設定してください。",
       passwordMismatch: "パスワードが一致しません。",
     },
     errors: {

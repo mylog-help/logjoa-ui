@@ -1,12 +1,17 @@
 import * as React from "react";
 import { cn } from "../cn";
+import { Button } from "../ui/button";
+import type { AuthMessages } from "./auth-messages";
 import { Brand, type BrandInfo } from "./brand";
 
-type LinkLike = React.ElementType<{
+/** 프로젝트 라우터의 Link (next/link, next-intl Link 등). 기본은 `<a>`. */
+export type AuthLinkComponent = React.ElementType<{
   href: string;
   className?: string;
   children?: React.ReactNode;
 }>;
+
+type LinkLike = AuthLinkComponent;
 
 type AuthShellProps = {
   /** 왼쪽 위 브랜드. 누르면 `href`(보통 사이트 홈)로 간다. */
@@ -116,5 +121,33 @@ export function AuthFooter({
     >
       {children}
     </div>
+  );
+}
+
+/**
+ * 재설정 링크가 만료됐거나 없이 들어왔을 때. 상태가 없어 서버에서 판단하는 페이지가 그대로 그린다
+ * (`NewPasswordForm` 의 `access="expired"` 도 이것).
+ */
+export function NewPasswordExpired({
+  messages: m,
+  href,
+  linkComponent: Link = "a",
+}: {
+  messages: AuthMessages;
+  href?: string;
+  linkComponent?: LinkLike;
+}) {
+  return (
+    <>
+      <AuthHeader
+        title={m.newPassword.expired}
+        description={m.newPassword.expiredDescription}
+      />
+      {href && (
+        <Button className="w-full" asChild>
+          <Link href={href}>{m.newPassword.requestAgain}</Link>
+        </Button>
+      )}
+    </>
   );
 }
