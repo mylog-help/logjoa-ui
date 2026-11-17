@@ -55,9 +55,9 @@ export function AuthShell({
           <Brand brand={brand} linkComponent={linkComponent} />
           {actions && <div className="flex items-center gap-1">{actions}</div>}
         </div>
-        <div className="flex flex-1 items-center justify-center">
+        <main className="flex flex-1 items-center justify-center">
           <div className="flex w-full max-w-sm flex-col gap-6">{children}</div>
-        </div>
+        </main>
       </div>
       {aside && (
         <div className="relative hidden flex-col justify-center gap-6 overflow-hidden bg-muted p-10 lg:flex">

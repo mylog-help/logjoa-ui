@@ -17,7 +17,7 @@ logjoa 웹 프로젝트(devlog·mobilog·mylog) 공통 UI — shadcn 원본 컴�
 ## 쓰기
 
 ```bash
-pnpm add "github:mylog-help/logjoa-ui#v0.25.0"
+pnpm add "github:mylog-help/logjoa-ui#v0.26.0"
 ```
 
 ```ts
@@ -127,6 +127,7 @@ pnpm ui:upstream          # 최신 shadcn을 임시로 받아 지금과 다른 �
 
 ## 바뀐 것
 
+- v0.26.0: `AuthShell`의 폼 영역을 `<main>`으로(인증 화면에 본문 랜드마크가 없었다). 쓰는 쪽이 이미 `<main>`으로 감싸고 있으면 중첩되니 확인한다.
 - v0.25.0: 인증 화면 한 벌 추가(`custom/auth-form` — `LoginForm`·`SignupForm`·`ResetPasswordForm`·`NewPasswordForm`·`useAuthForm`·`AuthField`·`AuthFormError`·`AuthStatus`). 서버 오류를 `Alert` 상자 대신 제출 버튼 위 빨간 글자로. `NewPasswordExpired`·`AuthLinkComponent`(`custom/auth`), `validation.passwordHint` 문구 추가. 세 사이트에 복사돼 있던 입력칸(`AuthField`·`CustomFormField`)을 대신한다.
 - v0.24.0: 비밀번호 재설정 코드 입력 문구(`verifyCode`·`haveCode`·`authValidate.code` 등)를 뺌 — 세 사이트 메일 링크가 `/auth/confirm`(token_hash)으로 어느 기기에서든 열려 코드가 필요 없다.
 - v0.23.0: 인증 문구에 비밀번호 재설정 코드 입력·다시 보내기·링크 만료 문구 추가. `AUTH_PASSWORD_MIN`(8자, 세 사이트 공통 최소 길이 — `authValidate.newPassword` 기본값), `authValidate.code`, `otp_expired` 오류 문장.
